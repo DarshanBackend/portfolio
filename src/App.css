@@ -1,0 +1,5 @@
+/* App.css - keeping it minimal as we use component-specific CSS and global index.css */
+/* Ensure smooth scrolling for anchor links */
+html {
+  scroll-behavior: smooth;
+}

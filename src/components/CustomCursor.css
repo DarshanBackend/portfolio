@@ -1,0 +1,191 @@
+/* ===== Cursor Trail Canvas ===== */
+.cursor-trail-canvas {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    pointer-events: none;
+    z-index: 99998;
+}
+
+/* ===== Custom Cursor Wrapper ===== */
+.custom-cursor {
+    pointer-events: none;
+    z-index: 99999;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+.custom-cursor.cursor-visible {
+    opacity: 1;
+}
+
+/* ===== Cursor Dot (inner) ===== */
+.cursor-dot {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 8px;
+    height: 8px;
+    margin-left: -4px;
+    margin-top: -4px;
+    border-radius: 50%;
+    background: #38bdf8;
+    box-shadow:
+        0 0 10px rgba(56, 189, 248, 0.8),
+        0 0 20px rgba(56, 189, 248, 0.4),
+        0 0 40px rgba(129, 140, 248, 0.2);
+    pointer-events: none;
+    will-change: transform;
+    transition: width 0.25s ease, height 0.25s ease, margin 0.25s ease,
+        background 0.25s ease, box-shadow 0.25s ease;
+}
+
+/* ===== Cursor Ring (outer) ===== */
+.cursor-ring {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 36px;
+    height: 36px;
+    margin-left: -18px;
+    margin-top: -18px;
+    border-radius: 50%;
+    border: 1.5px solid rgba(56, 189, 248, 0.4);
+    background: transparent;
+    pointer-events: none;
+    will-change: transform;
+    transition: width 0.3s cubic-bezier(0.25, 0.8, 0.25, 1),
+        height 0.3s cubic-bezier(0.25, 0.8, 0.25, 1),
+        margin 0.3s cubic-bezier(0.25, 0.8, 0.25, 1),
+        border-color 0.3s ease,
+        background 0.3s ease,
+        opacity 0.3s ease;
+}
+
+/* ===== Hover State ===== */
+.custom-cursor.cursor-hover .cursor-dot {
+    width: 12px;
+    height: 12px;
+    margin-left: -6px;
+    margin-top: -6px;
+    background: #818cf8;
+    box-shadow:
+        0 0 14px rgba(129, 140, 248, 0.9),
+        0 0 28px rgba(129, 140, 248, 0.5),
+        0 0 50px rgba(129, 140, 248, 0.25);
+}
+
+.custom-cursor.cursor-hover .cursor-ring {
+    width: 50px;
+    height: 50px;
+    margin-left: -25px;
+    margin-top: -25px;
+    border-color: rgba(129, 140, 248, 0.5);
+    background: rgba(129, 140, 248, 0.06);
+}
+
+/* ===== Click State ===== */
+.custom-cursor.cursor-click .cursor-dot {
+    width: 6px;
+    height: 6px;
+    margin-left: -3px;
+    margin-top: -3px;
+    background: #f0abfc;
+    box-shadow:
+        0 0 16px rgba(240, 171, 252, 1),
+        0 0 32px rgba(240, 171, 252, 0.6),
+        0 0 60px rgba(240, 171, 252, 0.3);
+}
+
+.custom-cursor.cursor-click .cursor-ring {
+    width: 28px;
+    height: 28px;
+    margin-left: -14px;
+    margin-top: -14px;
+    border-color: rgba(240, 171, 252, 0.6);
+    background: rgba(240, 171, 252, 0.08);
+}
+
+/* ===== Pulse animation on ring ===== */
+.cursor-ring::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+    border: 1px solid rgba(56, 189, 248, 0.15);
+    transform: translate(-50%, -50%);
+    animation: cursorPulse 2s ease-in-out infinite;
+}
+
+@keyframes cursorPulse {
+
+    0%,
+    100% {
+        transform: translate(-50%, -50%) scale(1);
+        opacity: 0.6;
+    }
+
+    50% {
+        transform: translate(-50%, -50%) scale(1.4);
+        opacity: 0;
+    }
+}
+
+/* ===== Hide default cursor globally ===== */
+html,
+body {
+    cursor: none !important;
+}
+
+a,
+button,
+input,
+textarea,
+select,
+[role="button"] {
+    cursor: none !important;
+}
+
+/* ===== Disable on touch/mobile ===== */
+@media (hover: none) and (pointer: coarse) {
+
+    .cursor-trail-canvas,
+    .custom-cursor {
+        display: none !important;
+    }
+
+    html,
+    body,
+    a,
+    button,
+    input,
+    textarea,
+    select,
+    [role="button"] {
+        cursor: auto !important;
+    }
+}
+
+@media (max-width: 768px) {
+
+    .cursor-trail-canvas,
+    .custom-cursor {
+        display: none !important;
+    }
+
+    html,
+    body,
+    a,
+    button,
+    input,
+    textarea,
+    select,
+    [role="button"] {
+        cursor: auto !important;
+    }
+}

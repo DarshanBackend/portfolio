@@ -1,0 +1,748 @@
+/* Projects.css */
+
+/* ════════════════════════════════════════════
+   TOKENS
+════════════════════════════════════════════ */
+:root {
+    --ps-bg: #05080f;
+    --ps-surface: #0b1120;
+    --ps-surface-2: #111827;
+    --ps-border: rgba(255, 255, 255, 0.07);
+    --ps-border-hover: rgba(255, 255, 255, 0.14);
+    --ps-text: #f1f5f9;
+    --ps-text-2: #94a3b8;
+    --ps-text-3: #475569;
+    --ps-accent: #6366f1;
+    --ps-accent-2: #06b6d4;
+    --ps-radius: 18px;
+    --ps-radius-sm: 10px;
+}
+
+/* ════════════════════════════════════════════
+   SECTION SHELL
+════════════════════════════════════════════ */
+.ps {
+    position: relative;
+    background: var(--ps-bg);
+    padding: 8rem 0 10rem;
+    overflow: hidden;
+}
+
+/* ── Ambient blobs ── */
+.ps-ambient {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    z-index: 0;
+}
+
+.ambient-blob {
+    position: absolute;
+    border-radius: 50%;
+    filter: blur(100px);
+    opacity: 0.12;
+}
+
+.blob-1 {
+    width: 600px;
+    height: 600px;
+    background: var(--ps-accent);
+    top: -200px;
+    left: -200px;
+}
+
+.blob-2 {
+    width: 500px;
+    height: 500px;
+    background: var(--ps-accent-2);
+    bottom: -100px;
+    right: -150px;
+}
+
+.blob-3 {
+    width: 350px;
+    height: 350px;
+    background: #a855f7;
+    top: 40%;
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+/* ── Container ── */
+.ps-container {
+    position: relative;
+    z-index: 1;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 1.5rem;
+}
+
+/* ════════════════════════════════════════════
+   HEADER
+════════════════════════════════════════════ */
+.ps-header {
+    margin-bottom: 4rem;
+    max-width: 600px;
+}
+
+.ps-eyebrow {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    margin-bottom: 1.25rem;
+}
+
+.eyebrow-text {
+    font-family: 'Fira Code', monospace;
+    font-size: 0.72rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--ps-accent);
+}
+
+.eyebrow-line {
+    flex: 0 0 32px;
+    height: 1px;
+    background: linear-gradient(90deg, var(--ps-accent), transparent);
+}
+
+.ps-title {
+    font-size: clamp(2.8rem, 6vw, 5rem);
+    font-weight: 800;
+    color: var(--ps-text);
+    line-height: 1.05;
+    letter-spacing: -0.03em;
+    margin-bottom: 1rem;
+}
+
+.ps-title-accent {
+    background: linear-gradient(
+        135deg,
+        var(--ps-accent),
+        var(--ps-accent-2)
+    );
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+.ps-subtitle {
+    color: var(--ps-text-2);
+    font-size: 1.05rem;
+    line-height: 1.7;
+    max-width: 44ch;
+}
+
+/* ════════════════════════════════════════════
+   GRID LAYOUT
+════════════════════════════════════════════ */
+.ps-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    grid-template-rows: auto auto;
+    gap: 16px;
+}
+
+/* Featured occupies 2 cols × 1 row */
+.pc-featured {
+    grid-column: 1 / 3;
+    grid-row: 1;
+    min-height: 480px;
+}
+
+/* Right column stacks 2 cards */
+.ps-col {
+    grid-column: 3;
+    grid-row: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+.pc-half {
+    flex: 1;
+    min-height: 220px;
+}
+
+/* Bottom row: each takes 1 col */
+.pc-third {
+    grid-column: auto;
+    grid-row: 2;
+    min-height: 280px;
+}
+
+/* ════════════════════════════════════════════
+   CARD BASE
+════════════════════════════════════════════ */
+.pc {
+    border-radius: var(--ps-radius);
+    overflow: hidden;
+    cursor: pointer;
+    border: 1px solid var(--ps-border);
+    transition: border-color 0.35s ease,
+                box-shadow 0.35s ease;
+}
+
+.pc:hover {
+    border-color: var(--ps-border-hover);
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5),
+                0 0 0 1px rgba(99, 102, 241, 0.15);
+}
+
+.pc-inner {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    padding: 1.25rem;
+    min-height: inherit;
+}
+
+/* ── Media ── */
+.pc-media {
+    position: absolute;
+    inset: 0;
+    z-index: 0;
+    overflow: hidden;
+    border-radius: inherit;
+}
+
+.pc-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+    will-change: transform, filter;
+}
+
+.pc-gradient {
+    position: absolute;
+    inset: 0;
+    background:
+        linear-gradient(
+            to top,
+            rgba(5, 8, 15, 0.97) 0%,
+            rgba(5, 8, 15, 0.55) 55%,
+            rgba(5, 8, 15, 0.15) 100%
+        );
+}
+
+/* Noise texture overlay */
+.pc-noise {
+    position: absolute;
+    inset: 0;
+    z-index: 1;
+    border-radius: inherit;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E");
+    pointer-events: none;
+    opacity: 0.4;
+}
+
+/* ── Card head ── */
+.pc-head {
+    position: relative;
+    z-index: 2;
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+}
+
+.pc-num {
+    font-family: 'Fira Code', monospace;
+    font-size: 0.7rem;
+    color: rgba(255, 255, 255, 0.22);
+    letter-spacing: 0.05em;
+}
+
+.pc-eye-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.35rem;
+    font-size: 0.72rem;
+    font-weight: 600;
+    color: #fff;
+    background: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(8px);
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    padding: 0.3rem 0.7rem;
+    border-radius: 20px;
+    letter-spacing: 0.03em;
+}
+
+/* ── Card foot ── */
+.pc-foot {
+    position: relative;
+    z-index: 2;
+}
+
+.pc-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.35rem;
+    margin-bottom: 0.65rem;
+}
+
+.pc-tag {
+    font-family: 'Fira Code', monospace;
+    font-size: 0.65rem;
+    color: var(--ps-accent-2);
+    background: rgba(6, 182, 212, 0.1);
+    border: 1px solid rgba(6, 182, 212, 0.2);
+    padding: 0.2rem 0.5rem;
+    border-radius: 4px;
+    letter-spacing: 0.04em;
+    white-space: nowrap;
+}
+
+.pc-title-row {
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+    gap: 0.5rem;
+}
+
+.pc-title {
+    font-size: 1.15rem;
+    font-weight: 700;
+    color: var(--ps-text);
+    line-height: 1.25;
+    letter-spacing: -0.02em;
+}
+
+.pc-title-lg {
+    font-size: clamp(1.4rem, 2.5vw, 2rem);
+}
+
+.pc-arrow {
+    color: var(--ps-accent);
+    flex-shrink: 0;
+    margin-bottom: 2px;
+}
+
+.pc-desc {
+    margin-top: 0.6rem;
+    font-size: 0.875rem;
+    color: var(--ps-text-2);
+    line-height: 1.65;
+    overflow: hidden;
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+}
+
+/* ════════════════════════════════════════════
+   COUNT BAR
+════════════════════════════════════════════ */
+.ps-count-bar {
+    display: flex;
+    align-items: center;
+    gap: 1.25rem;
+    margin-top: 3rem;
+}
+
+.count-label {
+    font-family: 'Fira Code', monospace;
+    font-size: 0.75rem;
+    color: var(--ps-text-3);
+    white-space: nowrap;
+}
+
+.count-track {
+    flex: 1;
+    height: 1px;
+    background: rgba(255, 255, 255, 0.06);
+    border-radius: 1px;
+    overflow: hidden;
+}
+
+.count-fill {
+    height: 100%;
+    background: linear-gradient(
+        90deg,
+        var(--ps-accent),
+        var(--ps-accent-2)
+    );
+    border-radius: 1px;
+}
+
+/* ════════════════════════════════════════════
+   MODAL
+════════════════════════════════════════════ */
+.pm-backdrop {
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.82);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    z-index: 200;
+}
+
+.pm {
+    position: fixed;
+    z-index: 201;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: min(640px, 94vw);
+    max-height: 90vh;
+    overflow-y: auto;
+    background: #0d1424;
+    border-radius: 20px;
+    border: 1px solid rgba(255, 255, 255, 0.09);
+    box-shadow:
+        0 50px 100px rgba(0, 0, 0, 0.7),
+        0 0 0 1px rgba(99, 102, 241, 0.1);
+    scrollbar-width: thin;
+    scrollbar-color: rgba(255,255,255,0.08) transparent;
+}
+
+.pm::-webkit-scrollbar { width: 4px; }
+.pm::-webkit-scrollbar-thumb {
+    background: rgba(255,255,255,0.08);
+    border-radius: 2px;
+}
+
+/* Hero */
+.pm-hero {
+    position: relative;
+    height: 240px;
+    overflow: hidden;
+    border-radius: 20px 20px 0 0;
+    flex-shrink: 0;
+}
+
+.pm-hero-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+    filter: brightness(0.55) saturate(0.8);
+}
+
+.pm-hero-overlay {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(
+        to bottom,
+        rgba(13, 20, 36, 0.1) 0%,
+        rgba(13, 20, 36, 0.95) 100%
+    );
+}
+
+.pm-close {
+    position: absolute;
+    top: 1rem;
+    right: 1rem;
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.08);
+    border: 1px solid rgba(255, 255, 255, 0.13);
+    color: #fff;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    backdrop-filter: blur(8px);
+    transition: background 0.2s;
+    z-index: 5;
+}
+
+.pm-close:hover {
+    background: rgba(255, 255, 255, 0.18);
+}
+
+.pm-hero-title {
+    position: absolute;
+    bottom: 1.25rem;
+    left: 1.75rem;
+    right: 4rem;
+    z-index: 3;
+}
+
+.pm-hero-title h3 {
+    font-size: clamp(1.4rem, 4vw, 2rem);
+    font-weight: 800;
+    color: #fff;
+    letter-spacing: -0.03em;
+    line-height: 1.15;
+}
+
+/* Body */
+.pm-body {
+    padding: 1.75rem 2rem 2.25rem;
+}
+
+.pm-desc {
+    color: var(--ps-text-2);
+    font-size: 0.97rem;
+    line-height: 1.75;
+    margin-bottom: 2rem;
+}
+
+.pm-section {
+    margin-bottom: 2rem;
+}
+
+.pm-section-label {
+    font-family: 'Fira Code', monospace;
+    font-size: 0.7rem;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--ps-text-3);
+    margin-bottom: 0.75rem;
+}
+
+.pm-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+}
+
+.pm-tag {
+    font-family: 'Fira Code', monospace;
+    font-size: 0.78rem;
+    color: var(--ps-text-2);
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.09);
+    padding: 0.3rem 0.8rem;
+    border-radius: 6px;
+    transition: color 0.2s, border-color 0.2s;
+}
+
+.pm-tag:hover {
+    color: var(--ps-accent-2);
+    border-color: rgba(6, 182, 212, 0.3);
+}
+
+/* Actions */
+.pm-actions {
+    display: flex;
+    gap: 0.75rem;
+    flex-wrap: wrap;
+}
+
+.pm-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.7rem 1.5rem;
+    border-radius: 10px;
+    font-size: 0.875rem;
+    font-weight: 600;
+    text-decoration: none;
+    transition: all 0.22s ease;
+    flex: 1;
+    justify-content: center;
+    min-width: 130px;
+}
+
+.pm-btn-ghost {
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    color: var(--ps-text);
+}
+
+.pm-btn-ghost:hover {
+    background: rgba(255, 255, 255, 0.1);
+    border-color: rgba(255, 255, 255, 0.2);
+}
+
+.pm-btn-solid {
+    background: linear-gradient(
+        135deg,
+        var(--ps-accent),
+        var(--ps-accent-2)
+    );
+    border: 1px solid transparent;
+    color: #fff;
+}
+
+.pm-btn-solid:hover {
+    filter: brightness(1.12);
+    transform: translateY(-1px);
+    box-shadow: 0 8px 24px rgba(99, 102, 241, 0.4);
+}
+
+/* ════════════════════════════════════════════
+   RESPONSIVE
+════════════════════════════════════════════ */
+
+/* ── Large tablet (≤ 1024px) ── */
+@media (max-width: 1024px) {
+    .ps-grid {
+        grid-template-columns: 1fr 1fr;
+        grid-template-rows: auto auto auto;
+    }
+
+    .pc-featured {
+        grid-column: 1 / -1;
+        grid-row: 1;
+        min-height: 420px;
+    }
+
+    .ps-col {
+        grid-column: 1 / -1;
+        grid-row: 2;
+        flex-direction: row;
+    }
+
+    .pc-half {
+        min-height: 280px;
+    }
+
+    .pc-third {
+        grid-row: 3;
+    }
+}
+
+/* ── Tablet (≤ 768px) ── */
+@media (max-width: 768px) {
+    .ps {
+        padding: 5rem 0 7rem;
+    }
+
+    .ps-header {
+        margin-bottom: 2.75rem;
+    }
+
+    .ps-grid {
+        grid-template-columns: 1fr;
+        gap: 14px;
+    }
+
+    .pc-featured {
+        grid-column: 1;
+        min-height: 360px;
+    }
+
+    .ps-col {
+        grid-column: 1;
+        grid-row: auto;
+        flex-direction: column;
+        gap: 14px;
+    }
+
+    .pc-half {
+        min-height: 260px;
+    }
+
+    .pc-third {
+        grid-column: 1;
+        grid-row: auto;
+        min-height: 250px;
+    }
+
+    .pc-title-lg {
+        font-size: 1.5rem;
+    }
+
+    /* Modal full-screen on small tablets */
+    .pm {
+        width: 96vw;
+        max-height: 92vh;
+    }
+
+    .pm-hero {
+        height: 200px;
+    }
+
+    .pm-body {
+        padding: 1.4rem 1.5rem 2rem;
+    }
+}
+
+/* ── Mobile (≤ 480px) ── */
+@media (max-width: 480px) {
+    .ps {
+        padding: 4rem 0 5rem;
+    }
+
+    .ps-container {
+        padding: 0 1rem;
+    }
+
+    .ps-title {
+        font-size: 2.4rem;
+    }
+
+    .ps-subtitle {
+        font-size: 0.95rem;
+    }
+
+    .pc-featured {
+        min-height: 300px;
+    }
+
+    .pc-half {
+        min-height: 220px;
+    }
+
+    .pc-third {
+        min-height: 220px;
+    }
+
+    .pc-title-lg {
+        font-size: 1.25rem;
+    }
+
+    .pc-desc {
+        -webkit-line-clamp: 2;
+    }
+
+    /* Modal bottom sheet on mobile */
+    .pm {
+        top: auto;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        transform: none;
+        width: 100%;
+        max-height: 88vh;
+        border-radius: 20px 20px 0 0;
+        border-bottom: none;
+    }
+
+    .pm-hero {
+        height: 180px;
+        border-radius: 20px 20px 0 0;
+    }
+
+    .pm-body {
+        padding: 1.25rem 1.25rem 2rem;
+    }
+
+    .pm-actions {
+        flex-direction: column;
+    }
+
+    .pm-btn {
+        width: 100%;
+    }
+
+    /* Ambient blobs smaller on mobile */
+    .blob-1 { width: 300px; height: 300px; }
+    .blob-2 { width: 250px; height: 250px; }
+    .blob-3 { width: 200px; height: 200px; }
+
+    .ps-count-bar {
+        margin-top: 2rem;
+    }
+}
+
+/* ── Tiny (≤ 360px) ── */
+@media (max-width: 360px) {
+    .ps-title {
+        font-size: 2rem;
+    }
+
+    .pc-featured {
+        min-height: 260px;
+    }
+
+    .pc-inner {
+        padding: 1rem;
+    }
+}
